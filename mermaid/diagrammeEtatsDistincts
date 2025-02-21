@@ -1,0 +1,71 @@
+
+
+
+```mermaid
+
+stateDiagram-v2
+
+    [*] --> Idle
+
+    Idle --> Init : Enable①
+
+
+    Init --> Idle : Enable⓪
+    Init --> Error : SetError
+    Init --> InOpLevelOk
+    Init --> InOpLevelLow
+    Init --> InOpLevelHigh
+
+
+    InOpLevelOk --> Idle : Enable⓪
+    InOpLevelOk --> Error : SetError
+    InOpLevelOk --> InOpLevelLow
+    InOpLevelOk --> InOpLevelHigh
+
+
+    InOpLevelLow --> Idle : Enable⓪
+    InOpLevelLow --> Error : SetError
+    InOpLevelLow --> InOpLevelOk
+
+
+    InOpLevelHigh --> Idle : Enable⓪
+    InOpLevelHigh --> Error : SetError
+    InOpLevelHigh --> InOpLevelOk
+
+
+    Error --> Idle : Enable⓪
+
+
+    note left of Idle
+        InOperation := FALSE
+        Error := FALSE
+    end note
+
+    note left of Init
+        InOperation := FALSE
+        Error := FALSE
+    end note
+
+    note right of InOpLevelOk
+        InOperation := TRUE
+        Error := FALSE
+    end note
+
+    note right of InOpLevelLow
+        InOperation := TRUE
+        Error := FALSE
+    end note
+
+    note right of InOpLevelHigh
+        InOperation := TRUE
+        Error := FALSE
+    end note
+
+    note left of Error
+        InOperation := FALSE
+        Error := TRUE
+    end note
+
+
+
+```
